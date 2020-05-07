@@ -2,10 +2,10 @@
  * Returns a Promise that resolves when window.ethereum is set within the given
  * timeout, and rejects otherwise.
  *
- * @param {Object} opts - Options bag.
- * @param {number} opts.timeout - Milliseconds to wait for
+ * @param {Object} options - Options bag.
+ * @param {number} options.timeout - Milliseconds to wait for
  * 'ethereum#initialized' to be dispatched. Default: 3000
- * @param {boolean} opts.mustBeMetaMask - True if the Provider must be MetaMask,
+ * @param {boolean} options.mustBeMetaMask - True if the Provider must be MetaMask,
  * false if it can be from another wallet. Default: false
  * @returns {Promise<void>} A Promise that resolves if the Provider is detected
  * within the given timeout, and rejects otherwise.
