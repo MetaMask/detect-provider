@@ -7,14 +7,14 @@ It has 0 dependencies and works out of the box in the browser, for synchronously
 ## Usage
 
 ```javascript
-import detectProvider from '@metamask/detect-provider'
+import detectEthereumProvider from '@metamask/detect-provider'
 
 try {
-  await detectProvider()
+  await detectEthereumProvider()
   console.log('Ethereum successfully detected!')
   // The provider will always be available here
   const { ethereum } = window
-  // Do stuff!
+  // Access the decentralized web!
 } catch (_) {
   console.log('Please install MetaMask!')
 }
