@@ -9,15 +9,20 @@ It has 0 dependencies and works out of the box in any modern browser, for synchr
 ```javascript
 import detectEthereumProvider from '@metamask/detect-provider'
 
+let provider
+
 try {
-  await detectEthereumProvider()
+  provider = await detectEthereumProvider()
   console.log('Ethereum successfully detected!')
-  // The provider will always be available here
-  const { ethereum } = window
-  // Access the decentralized web!
+  // The provider should also be available here as window.ethereum
 } catch (_) {
   console.log('Please install MetaMask!')
 }
+
+// Access the decentralized web!
+const chainId = await provider.request({
+  method: 'eth_chainId
+})
 ```
 
 ### Options

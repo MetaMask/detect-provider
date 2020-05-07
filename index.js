@@ -1,14 +1,14 @@
 /**
- * Returns a Promise that resolves when window.ethereum is set within the given
- * timeout, and rejects otherwise.
+ * Returns a Promise that resolves to the value of window.ethereum if it is
+ * set within the given timeout, and rejects otherwise.
  *
  * @param {Object} options - Options bag.
  * @param {number} options.timeout - Milliseconds to wait for
  * 'ethereum#initialized' to be dispatched. Default: 3000
  * @param {boolean} options.mustBeMetaMask - True if the Provider must be MetaMask,
  * false if it can be from another wallet. Default: false
- * @returns {Promise<void>} A Promise that resolves if the Provider is detected
- * within the given timeout, and rejects otherwise.
+ * @returns {Promise<EthereumProvider>} A Promise that resolves to the Provider if it
+ * is detected within the given timeout, and rejects otherwise.
  */
 function detectProvider ({
   timeout = 3000,
@@ -36,7 +36,10 @@ function detectProvider ({
     function handleEthereum () {
       const { ethereum } = window
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
-        resolve()
+        if (!ethereum.request) {
+          console.warn('Warning: Detected Ethereum Provider is not compatible with EIP 1193.')
+        }
+        resolve(ethereum)
       } else {
         const message = mustBeMetaMask && ethereum
           ? 'Non-MetaMask window.ethereum detected.'

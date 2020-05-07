@@ -42,8 +42,9 @@ test('detectProvider: mustBeMetamask with ethereum already set', async function 
 
   mockWindowProps(providerWithMetaMask)
 
-  await detectProvider()
+  const provider = await detectProvider()
 
+  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
   t.ok(window.removeEventListener.notCalled, 'removeEventListener should not have been called')
   t.end()
@@ -64,16 +65,47 @@ test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set', as
   }
 })
 
-test('detectProvider: ethereum set asynchronously', async function (t) {
+test('detectProvider: ethereum set on ethereum#initialized', async function (t) {
 
   mockWindowProps(noProvider)
   const clock = sinon.useFakeTimers()
 
   const detectPromise = detectProvider({ timeout: 1 })
-  window.ethereum = providerWithMetaMask
-  clock.tick(1)
-  await detectPromise
 
+  // set ethereum and call event handler as though event was dispatched
+  window.ethereum = providerWithMetaMask
+  window.addEventListener.lastCall.args[1]()
+
+  // advance clock to ensure nothing blows up
+  clock.tick(1)
+  clock.tick(1)
+
+  const provider = await detectPromise
+
+  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
+  t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+
+  clock.restore()
+  t.end()
+})
+
+test('detectProvider: ethereum set at end of timeout', async function (t) {
+
+  mockWindowProps(noProvider)
+  const clock = sinon.useFakeTimers()
+
+  const detectPromise = detectProvider({ timeout: 1 })
+
+  // set ethereum
+  window.ethereum = providerWithMetaMask
+
+  // advance clock to trigger timeout function
+  clock.tick(1)
+
+  const provider = await detectPromise
+
+  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
 
