@@ -1,0 +1,37 @@
+{
+  "name": "@metamask/detect-provider",
+  "version": "1.0.0",
+  "description": "A tiny utility for detecting the MetaMask Ethereum provider, or any EIP 1193-compliant provider.",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "node test/*",
+    "lint": "eslint . --ext js,json",
+    "lint:fix": "eslint . --ext js,json --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MetaMask/detect-provider.git"
+  },
+  "author": "Erik Marks <rekmarks@protonmail.com>",
+  "license": "ISC",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/MetaMask/detect-provider/issues"
+  },
+  "homepage": "https://github.com/MetaMask/detect-provider#readme",
+  "devDependencies": {
+    "@metamask/eslint-config": "^2.1.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-json": "^2.1.1",
+    "sinon": "^9.0.2",
+    "tape": "^5.0.0"
+  },
+  "dependencies": {}
+}
