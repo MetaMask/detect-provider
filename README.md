@@ -6,7 +6,7 @@ It has 0 dependencies and works out of the box in any modern browser, for synchr
 
 ## Usage
 
-Keep in mind that the providers detected by this package may or may not be compatible with [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
+Keep in mind that the providers detected by this package may or may not support [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
 Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ethereum-provider.html) to learn how to use our provider.
 
 ```javascript
@@ -15,17 +15,20 @@ import detectEthereumProvider from '@metamask/detect-provider'
 let provider
 
 try {
+
   provider = await detectEthereumProvider()
   console.log('Ethereum successfully detected!')
-  // The provider should also be available here as window.ethereum
-} catch (_) {
-  console.log('Please install MetaMask!')
-}
 
-// Access the decentralized web!
-const chainId = await provider.request({
-  method: 'eth_chainId
-})
+  // From now on, this _should_ always be true:
+  // provider === window.ethereum
+
+  // Access the decentralized web!
+  const chainId = await provider.request({
+    method: 'eth_chainId
+  })
+} catch (error) {
+  console.error('Please install MetaMask!', error)
+}
 ```
 
 ### Options
