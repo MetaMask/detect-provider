@@ -19,7 +19,7 @@ try {
   provider = await detectEthereumProvider()
   console.log('Ethereum successfully detected!')
 
-  // From now on, this _should_ always be true:
+  // From now on, this should always be true:
   // provider === window.ethereum
 
   // Access the decentralized web!
@@ -48,7 +48,9 @@ Whether `window.ethereum.isMetaMask === true` is required for the returned Promi
 
 Default: `false`
 
-## Synchronous and Asynchronous Injection
+## Advanced Topics
+
+### Synchronous and Asynchronous Injection
 
 Providers can be either synchronously or asynchronously injected:
 
@@ -58,3 +60,12 @@ Providers can be either synchronously or asynchronously injected:
 The MetaMask extension provider is synchronously injected, while the MetaMask mobile provider is asynchronously injected.
 
 To notify sites of asynchronous injection, MetaMask dispatches the `ethereum#initialized` event on `window` immediately after the provider has been set as `window.ethereum`. This package relies on this event to detect asynchronous injection.
+
+### Overwriting or Modifying `window.ethereum`
+
+The detected provider object returned by this package will strictly equal (`===`) `window.ethereum` for the entire page lifecycle, unless `window.ethereum` is overwritten.
+Consumers should neither overwrite `window.ethereum` nor attempt to modify the provider object, except for very good reason.
+
+If, as a dapp developer, you notice that the provider returned by this package does not strictly equal `window.ethereum`, something is wrong.
+This may happen, for example, if the user has multiple wallets installed.
+After confirming that your code and dependencies are not modifying or overwriting `window.ethereum`, you should ask the user to ensure that they only have a single provider-injecting wallet enabled at any one time.
