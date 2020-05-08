@@ -36,9 +36,6 @@ function detectProvider ({
     function handleEthereum () {
       const { ethereum } = window
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
-        if (!ethereum.request) {
-          console.warn('Warning: Detected Ethereum Provider is not compatible with EIP 1193.')
-        }
         resolve(ethereum)
       } else {
         const message = mustBeMetaMask && ethereum

@@ -1,10 +1,13 @@
 # @metamask/detect-provider
 
-A tiny utility for detecting the MetaMask Ethereum Provider, or any [EIP 1193](https://eips.ethereum.org/EIPS/eip-1193)-compliant Provider.
+A tiny utility for detecting the MetaMask Ethereum provider, or any provider injected at `window.ethereum`.
 
 It has 0 dependencies and works out of the box in any modern browser, for synchronously and asynchronously injected providers.
 
 ## Usage
+
+Keep in mind that the providers detected by this package may or may not be compatible with [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
+Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ethereum-provider.html) to learn how to use our provider.
 
 ```javascript
 import detectEthereumProvider from '@metamask/detect-provider'
