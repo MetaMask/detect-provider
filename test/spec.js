@@ -23,18 +23,15 @@ const providerWithMetaMask = {
 const providerNoMetaMask = {}
 const noProvider = null
 
-// error messages
-const noEthereumErrorMessage = 'Unable to detect window.ethereum.'
-const noMetaMaskErrorMessage = 'Non-MetaMask window.ethereum detected.'
-
 test('detectProvider: defaults with ethereum already set', async function (t) {
 
   mockWindowProps(providerNoMetaMask)
 
-  await detectProvider()
+  const provider = await detectProvider()
 
+  t.deepEquals({}, provider, 'resolve with expected provider')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
-  t.ok(window.removeEventListener.notCalled, 'removeEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
   t.end()
 })
 
@@ -46,7 +43,7 @@ test('detectProvider: mustBeMetamask with ethereum already set', async function 
 
   t.ok(provider.isMetaMask, 'should have resolved expected provider object')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
-  t.ok(window.removeEventListener.notCalled, 'removeEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
   t.end()
 })
 
@@ -54,15 +51,11 @@ test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set', as
 
   mockWindowProps(providerNoMetaMask)
 
-  try {
-    await detectProvider({ timeout: 1, mustBeMetaMask: true })
-    t.fail('should have thrown error')
-  } catch (error) {
-    t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
-    t.ok(window.removeEventListener.notCalled, 'removeEventListener should not have been called')
-    t.ok(error.message === noMetaMaskErrorMessage, 'error should have expected message')
-    t.end()
-  }
+  const result = await detectProvider({ timeout: 1, mustBeMetaMask: true })
+  t.equal(result, null, 'promise should have resolved null')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.end()
 })
 
 test('detectProvider: ethereum set on ethereum#initialized', async function (t) {
@@ -84,7 +77,7 @@ test('detectProvider: ethereum set on ethereum#initialized', async function (t) 
 
   t.ok(provider.isMetaMask, 'should have resolved expected provider object')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
-  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+  t.ok(window.removeEventListener.calledTwice, 'removeEventListener should have been called once')
 
   clock.restore()
   t.end()
@@ -117,13 +110,9 @@ test('detectProvider: ethereum never set', async function (t) {
 
   mockWindowProps(noProvider)
 
-  try {
-    await detectProvider({ timeout: 1 })
-    t.fail('should have thrown error')
-  } catch (error) {
-    t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
-    t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
-    t.ok(error.message === noEthereumErrorMessage, 'error should have expected message')
-    t.end()
-  }
+  const result = await detectProvider({ timeout: 1 })
+  t.equal(result, null, 'promise should have resolved null')
+  t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+  t.end()
 })

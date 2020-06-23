@@ -12,11 +12,10 @@ Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ether
 ```javascript
 import detectEthereumProvider from '@metamask/detect-provider'
 
-let provider
+const provider = await detectEthereumProvider()
 
-try {
+if (provider) {
 
-  provider = await detectEthereumProvider()
   console.log('Ethereum successfully detected!')
 
   // From now on, this should always be true:
@@ -26,21 +25,17 @@ try {
   const chainId = await provider.request({
     method: 'eth_chainId
   })
-} catch (error) {
+} else {
+
+  // if the provider is not detected, detectEthereumProvider resolves to null
   console.error('Please install MetaMask!', error)
 }
 ```
 
 ### Options
 
-The exported function takes an `options` object.
+The exported function takes an optional `options` object.
 In most cases, you won't need to specify anything, but read on for details.
-
-#### `options.timeout`
-
-How many milliseconds to wait for asynchronously injected providers.
-
-Default: `3000`
 
 #### `options.mustBeMetaMask`
 
@@ -48,23 +43,36 @@ Whether `window.ethereum.isMetaMask === true` is required for the returned Promi
 
 Default: `false`
 
+#### `options.reloadOnChainChange`
+
+Whether the provider should automatically reload the page when the chain changes.
+
+Default: `true`
+
+#### `options.timeout`
+
+How many milliseconds to wait for asynchronously injected providers.
+
+Default: `3000`
+
 ## Advanced Topics
 
 ### Synchronous and Asynchronous Injection
 
 Providers can be either synchronously or asynchronously injected:
 
-- Synchronously injected providers will be available by the time website code starts executing.
-- Asynchronously injected providers may not become available until later in the page lifecycle.
+- _Synchronously_ injected providers will be available by the time website code starts executing.
+- _Asynchronously_ injected providers may not become available until later in the page lifecycle.
 
-The MetaMask extension provider is synchronously injected, while the MetaMask mobile provider is asynchronously injected.
+The MetaMask _extension_ provider is synchronously injected, while the MetaMask _mobile_ provider is asynchronously injected.
 
-To notify sites of asynchronous injection, MetaMask dispatches the `ethereum#initialized` event on `window` immediately after the provider has been set as `window.ethereum`. This package relies on this event to detect asynchronous injection.
+To notify sites of asynchronous injection, MetaMask dispatches the `ethereum#initialized` event on `window` immediately after the provider has been set as `window.ethereum`.
+This package relies on that event to detect asynchronous injection.
 
 ### Overwriting or Modifying `window.ethereum`
 
 The detected provider object returned by this package will strictly equal (`===`) `window.ethereum` for the entire page lifecycle, unless `window.ethereum` is overwritten.
-Consumers should neither overwrite `window.ethereum` nor attempt to modify the provider object, except for very good reason.
+In general, consumers should never overwrite `window.ethereum` or attempt to modify the provider object.
 
 If, as a dapp developer, you notice that the provider returned by this package does not strictly equal `window.ethereum`, something is wrong.
 This may happen, for example, if the user has multiple wallets installed.

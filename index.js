@@ -1,20 +1,36 @@
 /**
  * Returns a Promise that resolves to the value of window.ethereum if it is
- * set within the given timeout, and rejects otherwise.
+ * set within the given timeout, or null.
+ * The Promise will not reject, but an error will be thrown if invalid options
+ * are provided.
  *
- * @param {Object} options - Options bag.
- * @param {number} options.timeout - Milliseconds to wait for
+ * @param {Object} [options] - Options bag.
+ * @param {boolean} [options.mustBeMetaMask] - Whether to only look for MetaMask
+ * providers. Default: false
+ * @param {boolean} [options.reloadOnChainChange] - Whether the Provider should
+ * reload the page on chain changes. Default: true
+ * @param {number} [options.timeout] - Milliseconds to wait for
  * 'ethereum#initialized' to be dispatched. Default: 3000
- * @param {boolean} options.mustBeMetaMask - True if the Provider must be MetaMask,
- * false if it can be from another wallet. Default: false
- * @returns {Promise<EthereumProvider>} A Promise that resolves to the Provider if it
- * is detected within the given timeout, and rejects otherwise.
+ * @returns {Promise<EthereumProvider | null>} A Promise that resolves with the Provider if it
+ * is detected within the given timeout, otherwise null.
  */
 function detectProvider ({
-  timeout = 3000,
   mustBeMetaMask = false,
+  reloadOnChainChange = true,
+  timeout = 3000,
 } = {}) {
-  return new Promise((resolve, reject) => {
+
+  if (typeof timeout !== 'number') {
+    throw new Error(`@metamask/detect-provider: Expected 'number' timeout.`)
+  }
+  if (typeof reloadOnChainChange !== 'boolean') {
+    throw new Error(`@metamask/detect-provider: Expected 'boolean' reloadOnChainChange.`)
+  }
+  if (typeof mustBeMetaMask !== 'boolean') {
+    throw new Error(`@metamask/detect-provider: Expected 'boolean' mustBeMetaMask.`)
+  }
+
+  return new Promise((resolve) => {
     if (window.ethereum) {
 
       handleEthereum()
@@ -28,20 +44,33 @@ function detectProvider ({
       )
 
       setTimeout(() => {
-        window.removeEventListener('ethereum#initialized', handleEthereum)
         handleEthereum()
       }, timeout)
     }
 
     function handleEthereum () {
+
+      window.removeEventListener('ethereum#initialized', handleEthereum)
+
       const { ethereum } = window
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
+
+        if ('reloadOnChainChange' in ethereum) {
+          ethereum.reloadOnChainChange = reloadOnChainChange
+        } else if (reloadOnChainChange) {
+          console.warn(`@metamask/detect-provider: window.ethereum does not have the 'reloadOnChainChange' property. The page may not reload on chain ID changes.`)
+        }
+
         resolve(ethereum)
+
       } else {
+
         const message = mustBeMetaMask && ethereum
           ? 'Non-MetaMask window.ethereum detected.'
           : 'Unable to detect window.ethereum.'
-        reject(new Error(message))
+
+        console.error('@metamask/detect-provider:', message)
+        resolve(null)
       }
     }
   })
