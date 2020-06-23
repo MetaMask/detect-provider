@@ -25,5 +25,6 @@ module.exports = {
   ignorePatterns: [
     '!.eslintrc.js',
     'node_modules/',
+    'dist/',
   ],
 }
