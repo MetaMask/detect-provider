@@ -1,8 +1,6 @@
 module.exports = {
-  env: {
-    browser: true,
-    commonjs: true,
-    es6: true,
+  parserOptions: {
+    ecmaVersion: 2018,
   },
   extends: [
     '@metamask/eslint-config',
@@ -12,15 +10,8 @@ module.exports = {
     'json',
   ],
   globals: {
-    document: false,
-    navigator: false,
     web3: true,
-    window: false,
-    $: false,
-    QUnit: false,
-  },
-  parserOptions: {
-    ecmaVersion: 2018,
+    window: true,
   },
   ignorePatterns: [
     '!.eslintrc.js',

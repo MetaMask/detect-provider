@@ -3,6 +3,8 @@ global.window = global // mock
 const test = require('tape')
 const sinon = require('sinon')
 
+// the rule is not in fact useless in this instance
+// eslint-disable-next-line import/no-useless-path-segments
 const detectProvider = require('../index')
 
 // test mocking utility
