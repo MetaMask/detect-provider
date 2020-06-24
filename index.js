@@ -7,8 +7,6 @@
  * @param {Object} [options] - Options bag.
  * @param {boolean} [options.mustBeMetaMask] - Whether to only look for MetaMask
  * providers. Default: false
- * @param {boolean} [options.reloadOnChainChange] - Whether the Provider should
- * reload the page on chain changes. Default: true
  * @param {number} [options.timeout] - Milliseconds to wait for
  * 'ethereum#initialized' to be dispatched. Default: 3000
  * @returns {Promise<EthereumProvider | null>} A Promise that resolves with the Provider if it
@@ -16,15 +14,11 @@
  */
 module.exports = function detectProvider ({
   mustBeMetaMask = false,
-  reloadOnChainChange = true,
   timeout = 3000,
 } = {}) {
 
   if (typeof timeout !== 'number') {
     throw new Error(`@metamask/detect-provider: Expected 'number' timeout.`)
-  }
-  if (typeof reloadOnChainChange !== 'boolean') {
-    throw new Error(`@metamask/detect-provider: Expected 'boolean' reloadOnChainChange.`)
   }
   if (typeof mustBeMetaMask !== 'boolean') {
     throw new Error(`@metamask/detect-provider: Expected 'boolean' mustBeMetaMask.`)
@@ -60,16 +54,9 @@ module.exports = function detectProvider ({
       window.removeEventListener('ethereum#initialized', handleEthereum)
 
       const { ethereum } = window
+
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
-
-        if ('reloadOnChainChange' in ethereum) {
-          ethereum.reloadOnChainChange = reloadOnChainChange
-        } else if (reloadOnChainChange) {
-          console.warn(`@metamask/detect-provider: window.ethereum does not have the 'reloadOnChainChange' property. The page may not reload on chain ID changes.`)
-        }
-
         resolve(ethereum)
-
       } else {
 
         const message = mustBeMetaMask && ethereum

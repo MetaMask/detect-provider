@@ -45,12 +45,6 @@ Whether `window.ethereum.isMetaMask === true` is required for the returned Promi
 
 Default: `false`
 
-#### `options.reloadOnChainChange`
-
-Whether the provider should automatically reload the page when the chain changes.
-
-Default: `true`
-
 #### `options.timeout`
 
 How many milliseconds to wait for asynchronously injected providers.
