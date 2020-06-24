@@ -39,7 +39,7 @@ if (provider) {
 ### HTML
 
 ```html
-<script href="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+<script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
 <script type="text/javascript">
   const provider = await detectEthereumProvider()
 
