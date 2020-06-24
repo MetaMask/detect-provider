@@ -14,7 +14,7 @@
  * @returns {Promise<EthereumProvider | null>} A Promise that resolves with the Provider if it
  * is detected within the given timeout, otherwise null.
  */
-function detectProvider ({
+module.exports = function detectProvider ({
   mustBeMetaMask = false,
   reloadOnChainChange = true,
   timeout = 3000,
@@ -29,6 +29,8 @@ function detectProvider ({
   if (typeof mustBeMetaMask !== 'boolean') {
     throw new Error(`@metamask/detect-provider: Expected 'boolean' mustBeMetaMask.`)
   }
+
+  let handled = false
 
   return new Promise((resolve) => {
     if (window.ethereum) {
@@ -49,6 +51,11 @@ function detectProvider ({
     }
 
     function handleEthereum () {
+
+      if (handled) {
+        return
+      }
+      handled = true
 
       window.removeEventListener('ethereum#initialized', handleEthereum)
 
@@ -75,5 +82,3 @@ function detectProvider ({
     }
   })
 }
-
-module.exports = detectProvider

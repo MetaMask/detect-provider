@@ -3,7 +3,7 @@ global.window = global // mock
 const test = require('tape')
 const sinon = require('sinon')
 
-const detectProvider = require('..')
+const detectProvider = require('../index')
 
 // test mocking utility
 const mockWindowProps = (ethereum) => {
@@ -77,7 +77,7 @@ test('detectProvider: ethereum set on ethereum#initialized', async function (t) 
 
   t.ok(provider.isMetaMask, 'should have resolved expected provider object')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
-  t.ok(window.removeEventListener.calledTwice, 'removeEventListener should have been called once')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
 
   clock.restore()
   t.end()
