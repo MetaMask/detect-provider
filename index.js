@@ -12,7 +12,7 @@
  * @returns {Promise<EthereumProvider | null>} A Promise that resolves with the Provider if it
  * is detected within the given timeout, otherwise null.
  */
-module.exports = function detectEthereumProvider ({
+module.exports = function detectProvider ({
   mustBeMetaMask = false,
   timeout = 3000,
 } = {}) {
