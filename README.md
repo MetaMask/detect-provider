@@ -22,6 +22,8 @@ if (provider) {
   // provider === window.ethereum
 
   // Access the decentralized web!
+
+  // Legacy providers may only have ethereum.sendAsync
   const chainId = await provider.request({
     method: 'eth_chainId
   })
