@@ -2,15 +2,18 @@
   "name": "@metamask/detect-provider",
   "version": "1.0.0",
   "description": "A tiny utility for detecting the MetaMask Ethereum provider, or any EIP 1193-compliant provider.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "files": [
-    "dist/index.js"
+    "index.js",
+    "dist/"
   ],
   "scripts": {
     "test": "node test/*",
     "lint": "eslint . --ext js,json",
     "lint:fix": "eslint . --ext js,json --fix",
-    "build": "mkdir -p dist && browserify index.js > dist/index.js",
+    "build": "mkdir -p dist && yarn build:browser && yarn build:browser:min",
+    "build:browser": "browserify index.js > dist/detect-provider.js",
+    "build:browser:min": "browserify -g uglifyify index.js > dist/detect-provider.min.js",
     "prepare": "yarn build"
   },
   "repository": {
@@ -34,7 +37,8 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-json": "^2.1.1",
     "sinon": "^9.0.2",
-    "tape": "^5.0.0"
+    "tape": "^5.0.0",
+    "uglifyify": "^5.0.2"
   },
   "dependencies": {}
 }
