@@ -26,6 +26,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "ethereum",
+    "provider",
+    "metamask",
+    "web3"
+  ],
   "bugs": {
     "url": "https://github.com/MetaMask/detect-provider/issues"
   },

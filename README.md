@@ -25,7 +25,7 @@ if (provider) {
 
   // Legacy providers may only have ethereum.sendAsync
   const chainId = await provider.request({
-    method: 'eth_chainId
+    method: 'eth_chainId'
   })
 } else {
 
