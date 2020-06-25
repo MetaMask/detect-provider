@@ -4,8 +4,7 @@ set -u
 set -e
 set -o pipefail
 
-BROWSERIFY_PATH="./node_modules/browserify/bin/cmd.js"
-BROWSERIFY_CMD="node ${BROWSERIFY_PATH} -s detectEthereumProvider"
+BROWSERIFY_CMD="browserify -s detectEthereumProvider"
 
 mkdir -p ./dist
 rm -rf ./dist/*
