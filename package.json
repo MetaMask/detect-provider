@@ -11,9 +11,7 @@
     "test": "node test/*",
     "lint": "eslint . --ext js,json",
     "lint:fix": "eslint . --ext js,json --fix",
-    "build": "mkdir -p dist && yarn build:browser && yarn build:browser:min",
-    "build:browser": "browserify index.js > dist/detect-provider.js",
-    "build:browser:min": "browserify -g uglifyify index.js > dist/detect-provider.min.js",
+    "build": "./build.sh",
     "prepare": "yarn build"
   },
   "repository": {

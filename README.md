@@ -9,6 +9,8 @@ It has 0 dependencies and works out of the box in any modern browser, for synchr
 Keep in mind that the providers detected by this package may or may not support [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
 Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ethereum-provider.html) to learn how to use our provider.
 
+### Node.js
+
 ```javascript
 import detectEthereumProvider from '@metamask/detect-provider'
 
@@ -32,6 +34,21 @@ if (provider) {
   // if the provider is not detected, detectEthereumProvider resolves to null
   console.error('Please install MetaMask!', error)
 }
+```
+
+### HTML
+
+```html
+<script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+<script type="text/javascript">
+  const provider = await detectEthereumProvider()
+
+  if (provider) {
+    // handle provider
+  } else {
+    // handle no provider
+  }
+</script>
 ```
 
 ### Options
