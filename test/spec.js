@@ -6,9 +6,10 @@ const sinon = require('sinon')
 const detectProvider = require('..')
 
 // test mocking utility
-const mockWindowProps = (ethereum) => {
+const mockGlobalProps = (ethereum) => {
   window.addEventListener = sinon.fake()
   window.removeEventListener = sinon.fake()
+  console.error = sinon.fake()
   if (ethereum) {
     window.ethereum = ethereum
   } else {
@@ -25,7 +26,7 @@ const noProvider = null
 
 test('detectProvider: defaults with ethereum already set', async function (t) {
 
-  mockWindowProps(providerNoMetaMask)
+  mockGlobalProps(providerNoMetaMask)
 
   const provider = await detectProvider()
 
@@ -37,7 +38,7 @@ test('detectProvider: defaults with ethereum already set', async function (t) {
 
 test('detectProvider: mustBeMetamask with ethereum already set', async function (t) {
 
-  mockWindowProps(providerWithMetaMask)
+  mockGlobalProps(providerWithMetaMask)
 
   const provider = await detectProvider()
 
@@ -49,7 +50,7 @@ test('detectProvider: mustBeMetamask with ethereum already set', async function 
 
 test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set', async function (t) {
 
-  mockWindowProps(providerNoMetaMask)
+  mockGlobalProps(providerNoMetaMask)
 
   const result = await detectProvider({ timeout: 1, mustBeMetaMask: true })
   t.equal(result, null, 'promise should have resolved null')
@@ -60,7 +61,7 @@ test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set', as
 
 test('detectProvider: ethereum set on ethereum#initialized', async function (t) {
 
-  mockWindowProps(noProvider)
+  mockGlobalProps(noProvider)
   const clock = sinon.useFakeTimers()
 
   const detectPromise = detectProvider({ timeout: 1 })
@@ -85,7 +86,7 @@ test('detectProvider: ethereum set on ethereum#initialized', async function (t) 
 
 test('detectProvider: ethereum set at end of timeout', async function (t) {
 
-  mockWindowProps(noProvider)
+  mockGlobalProps(noProvider)
   const clock = sinon.useFakeTimers()
 
   const detectPromise = detectProvider({ timeout: 1 })
@@ -108,11 +109,24 @@ test('detectProvider: ethereum set at end of timeout', async function (t) {
 
 test('detectProvider: ethereum never set', async function (t) {
 
-  mockWindowProps(noProvider)
+  mockGlobalProps(noProvider)
 
   const result = await detectProvider({ timeout: 1 })
   t.equal(result, null, 'promise should have resolved null')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+  t.ok(console.error.calledOnce, 'console.error should have been called once')
+  t.end()
+})
+
+test('detectProvider: ethereum never set (silent mode)', async function (t) {
+
+  mockGlobalProps(noProvider)
+
+  const result = await detectProvider({ timeout: 1, silent: true })
+  t.equal(result, null, 'promise should have resolved null')
+  t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+  t.ok(console.error.notCalled, 'console.error should not have been called')
   t.end()
 })
