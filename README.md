@@ -55,7 +55,7 @@ if (provider) {
 
 The exported function takes an optional `options` object.
 If invalid options are provided, an error will be thrown.
-All fields have default values.
+All options have default values.
 
 #### `options.mustBeMetaMask`
 
