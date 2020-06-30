@@ -54,19 +54,33 @@ if (provider) {
 ### Options
 
 The exported function takes an optional `options` object.
-In most cases, you won't need to specify anything, but read on for details.
+If invalid options are provided, an error will be thrown.
+All options have default values.
 
 #### `options.mustBeMetaMask`
 
-Whether `window.ethereum.isMetaMask === true` is required for the returned Promise to resolve.
+Type: `boolean`
 
 Default: `false`
 
+Whether `window.ethereum.isMetaMask === true` is required for the returned Promise to resolve.
+
+#### `options.silent`
+
+Type: `boolean`
+
+Default: `false`
+
+Whether error messages should be logged to the console.
+Does not affect errors thrown due to invalid options.
+
 #### `options.timeout`
 
-How many milliseconds to wait for asynchronously injected providers.
+Type: `number`
 
 Default: `3000`
+
+How many milliseconds to wait for asynchronously injected providers.
 
 ## Advanced Topics
 

@@ -7,22 +7,20 @@
  * @param {Object} [options] - Options bag.
  * @param {boolean} [options.mustBeMetaMask] - Whether to only look for MetaMask
  * providers. Default: false
+ * @param {boolean} [options.silent] - Whether to silence console errors. Does
+ * not affect thrown errors. Default: false
  * @param {number} [options.timeout] - Milliseconds to wait for
  * 'ethereum#initialized' to be dispatched. Default: 3000
- * @returns {Promise<EthereumProvider | null>} A Promise that resolves with the Provider if it
- * is detected within the given timeout, otherwise null.
+ * @returns {Promise<EthereumProvider | null>} A Promise that resolves with the
+ * Provider if it is detected within the given timeout, otherwise null.
  */
 module.exports = function detectEthereumProvider ({
   mustBeMetaMask = false,
+  silent = false,
   timeout = 3000,
 } = {}) {
 
-  if (typeof timeout !== 'number') {
-    throw new Error(`@metamask/detect-provider: Expected 'number' timeout.`)
-  }
-  if (typeof mustBeMetaMask !== 'boolean') {
-    throw new Error(`@metamask/detect-provider: Expected 'boolean' mustBeMetaMask.`)
-  }
+  _validateInputs()
 
   let handled = false
 
@@ -63,9 +61,21 @@ module.exports = function detectEthereumProvider ({
           ? 'Non-MetaMask window.ethereum detected.'
           : 'Unable to detect window.ethereum.'
 
-        console.error('@metamask/detect-provider:', message)
+        !silent && console.error('@metamask/detect-provider:', message)
         resolve(null)
       }
     }
   })
+
+  function _validateInputs () {
+    if (typeof mustBeMetaMask !== 'boolean') {
+      throw new Error(`@metamask/detect-provider: Expected option 'mustBeMetaMask' to be a boolean.`)
+    }
+    if (typeof silent !== 'boolean') {
+      throw new Error(`@metamask/detect-provider: Expected option 'silent' to be a boolean.`)
+    }
+    if (typeof timeout !== 'number') {
+      throw new Error(`@metamask/detect-provider: Expected option 'timeout' to be a number.`)
+    }
+  }
 }
