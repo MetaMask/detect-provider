@@ -4,8 +4,8 @@
   "description": "A tiny utility for detecting the MetaMask Ethereum provider, or any EIP 1193-compliant provider.",
   "main": "index.js",
   "files": [
-    "index.js",
-    "dist/"
+    "dist/",
+    "index.d.ts"
   ],
   "scripts": {
     "test": "node test/*",
@@ -34,6 +34,9 @@
     "url": "https://github.com/MetaMask/detect-provider/issues"
   },
   "homepage": "https://github.com/MetaMask/detect-provider#readme",
+  "dependencies": {
+    "@metamask/inpage-provider": "^7.0.0"
+  },
   "devDependencies": {
     "@metamask/eslint-config": "^2.1.1",
     "browserify": "^16.5.1",
@@ -43,6 +46,5 @@
     "sinon": "^9.0.2",
     "tape": "^5.0.0",
     "uglifyify": "^5.0.2"
-  },
-  "dependencies": {}
+  }
 }
