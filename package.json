@@ -34,9 +34,6 @@
     "url": "https://github.com/MetaMask/detect-provider/issues"
   },
   "homepage": "https://github.com/MetaMask/detect-provider#readme",
-  "dependencies": {
-    "@metamask/inpage-provider": "^7.0.0"
-  },
   "devDependencies": {
     "@metamask/eslint-config": "^2.1.1",
     "browserify": "^16.5.1",

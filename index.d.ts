@@ -1,5 +1,3 @@
-import { MetaMaskInpageProvider } from '@metamask/inpage-provider'
-
 interface DetectEthereumProviderArgs {
   mustBeMetaMask?: boolean,
   silent?: boolean,
@@ -23,5 +21,5 @@ interface DetectEthereumProviderArgs {
  * Provider if it is detected within the given timeout, otherwise null.
  */
 export interface detectEthereumProvider {
-  (options?: DetectEthereumProviderArgs): Promise<MetaMaskInpageProvider | null>;
+  (options?: DetectEthereumProviderArgs): Promise<ReturnType<typeof window.ethereum | null>>;
 }
