@@ -10,4 +10,4 @@ mkdir -p ./dist
 rm -rf ./dist/*
 
 $BROWSERIFY_CMD index.js > dist/detect-provider.js
-$BROWSERIFY_CMD -g uglifyify index.js > dist/detect-provider.min.js
+$BROWSERIFY_CMD -p tinyify index.js > dist/detect-provider.min.js
