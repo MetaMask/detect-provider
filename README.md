@@ -9,6 +9,12 @@ It has 0 dependencies and works out of the box in any modern browser, for synchr
 Keep in mind that the providers detected by this package may or may not support [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
 Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ethereum-provider.html) to learn how to use our provider.
 
+### Types
+
+Types are exposed at `index.d.ts`.
+The return type of `detectEthereumProvider` is `Promise<ReturnType<typeof window.ethereum | null>>`.
+You can find types for `window.ethereum` in e.g. [`@metamask/inpage-provider`](https://npmjs.com/package/@metamask/inpage-provider).
+
 ### Node.js
 
 ```javascript

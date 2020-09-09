@@ -21,5 +21,6 @@ interface DetectEthereumProviderArgs {
  * Provider if it is detected within the given timeout, otherwise null.
  */
 export interface detectEthereumProvider {
+  // You can get types for window.ethereum from @metamask/inpage-provider
   (options?: DetectEthereumProviderArgs): Promise<ReturnType<typeof window.ethereum | null>>;
 }
