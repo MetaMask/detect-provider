@@ -38,6 +38,7 @@ jobs:
           - node_modules
           - build-artifacts
 
+  prep-build:
     docker:
       - image: circleci/node:10
     steps:
