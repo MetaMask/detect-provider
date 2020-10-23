@@ -11,7 +11,11 @@ rm -rf ./dist/*
 
 tsc --project . --outDir dist
 
-sed -i '' 's/^export default/module.exports =/g' 'dist/index.js'
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+  sed -i '' 's/^export default/module.exports =/g' 'dist/index.js'
+else
+  sed -i 's/^export default/module.exports =/g' 'dist/index.js'
+fi
 
 $BROWSERIFY_CMD dist/index.js > dist/detect-provider.js
 $BROWSERIFY_CMD -p tinyify dist/index.js > dist/detect-provider.min.js
