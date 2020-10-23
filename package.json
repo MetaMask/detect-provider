@@ -2,9 +2,9 @@
   "name": "@metamask/detect-provider",
   "version": "1.1.0",
   "description": "A tiny utility for detecting the MetaMask Ethereum provider, or any EIP 1193-compliant provider.",
-  "main": "index.js",
+  "main": "src/index.js",
   "files": [
-    "index.js",
+    "src/*.js",
     "dist/"
   ],
   "engines": {
