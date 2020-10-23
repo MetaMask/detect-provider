@@ -6,6 +6,17 @@ module.exports = {
     '@metamask/eslint-config',
     '@metamask/eslint-config/config/nodejs',
   ],
+  plugins: [
+    'json',
+  ],
+  globals: {
+    window: true,
+  },
+  ignorePatterns: [
+    '!eslintrc.js',
+    'node_modules/',
+    'dist/',
+  ],
   overrides: [
     {
       files: ['*.ts'],
@@ -21,15 +32,5 @@ module.exports = {
         sourceType: 'script',
       },
     },
-  ],
-  plugins: [
-    'json',
-  ],
-  globals: {
-    window: true,
-  },
-  ignorePatterns: [
-    'node_modules/',
-    'dist/',
   ],
 }
