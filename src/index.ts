@@ -24,7 +24,7 @@ declare global {
  * @returns A Promise that resolves with the Provider if it is detected within
  * given timeout, otherwise null.
  */
-export function detectEthereumProvider({
+export default function detectEthereumProvider({
   mustBeMetaMask = false,
   silent = false,
   timeout = 3000,

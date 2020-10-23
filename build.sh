@@ -11,5 +11,7 @@ rm -rf ./dist/*
 
 tsc --project . --outDir dist
 
-$BROWSERIFY_CMD -p esmify dist/index.js > dist/detect-provider.js
-$BROWSERIFY_CMD -p esmify -p tinyify dist/index.js > dist/detect-provider.min.js
+sed -i '' 's/^export default/module.exports =/g' 'dist/index.js'
+
+$BROWSERIFY_CMD dist/index.js > dist/detect-provider.js
+$BROWSERIFY_CMD -p tinyify dist/index.js > dist/detect-provider.min.js
