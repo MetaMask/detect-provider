@@ -10,12 +10,27 @@ module.exports = {
     'json',
   ],
   globals: {
-    web3: true,
     window: true,
   },
   ignorePatterns: [
     '!.eslintrc.js',
     'node_modules/',
     'dist/',
+  ],
+  overrides: [
+    {
+      files: ['*.ts'],
+      extends: [
+        '@metamask/eslint-config/config/typescript',
+      ],
+    },
+    {
+      files: [
+        '.eslintrc.js',
+      ],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
   ],
 }

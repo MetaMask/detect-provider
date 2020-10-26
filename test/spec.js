@@ -3,7 +3,7 @@ global.window = global // mock
 const test = require('tape')
 const sinon = require('sinon')
 
-const detectProvider = require('..')
+const detectProvider = require('../dist')
 
 // test mocking utility
 const mockGlobalProps = (ethereum) => {
