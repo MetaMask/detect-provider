@@ -11,6 +11,7 @@
     "node": ">= 10"
   },
   "scripts": {
+    "pretest": "yarn build",
     "test": "node test/*",
     "lint": "eslint . --ext ts,js,json",
     "lint:fix": "yarn lint --fix",
