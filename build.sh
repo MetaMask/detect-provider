@@ -9,13 +9,7 @@ BROWSERIFY_CMD="browserify -s detectEthereumProvider"
 mkdir -p ./dist
 rm -rf ./dist/*
 
-tsc --project . --outDir dist
-
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-  sed -i '' 's/^export default/module.exports =/g' 'dist/index.js'
-else
-  sed -i 's/^export default/module.exports =/g' 'dist/index.js'
-fi
+tsc --project .
 
 $BROWSERIFY_CMD dist/index.js > dist/detect-provider.js
 $BROWSERIFY_CMD -p tinyify dist/index.js > dist/detect-provider.min.js

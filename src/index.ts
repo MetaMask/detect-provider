@@ -8,6 +8,8 @@ declare global {
   }
 }
 
+export = detectEthereumProvider;
+
 /**
  * Returns a Promise that resolves to the value of window.ethereum if it is
  * set within the given timeout, or null.
@@ -24,7 +26,7 @@ declare global {
  * @returns A Promise that resolves with the Provider if it is detected within
  * given timeout, otherwise null.
  */
-export default function detectEthereumProvider({
+function detectEthereumProvider({
   mustBeMetaMask = false,
   silent = false,
   timeout = 3000,
