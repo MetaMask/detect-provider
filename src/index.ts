@@ -2,10 +2,8 @@ interface EthereumProvider {
   isMetaMask?: boolean;
 }
 
-declare global {
-  interface Window {
-    ethereum?: EthereumProvider;
-  }
+interface Window {
+  ethereum?: EthereumProvider;
 }
 
 export = detectEthereumProvider;
@@ -37,7 +35,7 @@ function detectEthereumProvider({
   let handled = false;
 
   return new Promise((resolve) => {
-    if (window.ethereum) {
+    if ((window as Window).ethereum) {
 
       handleEthereum();
 
@@ -63,7 +61,7 @@ function detectEthereumProvider({
 
       window.removeEventListener('ethereum#initialized', handleEthereum);
 
-      const { ethereum } = window;
+      const { ethereum } = window as Window;
 
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
         resolve(ethereum);
