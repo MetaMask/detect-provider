@@ -30,11 +30,11 @@ export = detectEthereumProvider;
  * @returns A Promise that resolves with the Provider if it is detected within
  * given timeout, otherwise null.
  */
-function detectEthereumProvider({
+function detectEthereumProvider<T = MetaMaskEthereumProvider>({
   mustBeMetaMask = false,
   silent = false,
   timeout = 3000,
-} = {}): Promise<MetaMaskEthereumProvider | null> {
+} = {}): Promise<T | null> {
 
   _validateInputs();
 
@@ -70,7 +70,7 @@ function detectEthereumProvider({
       const { ethereum } = window as Window;
 
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
-        resolve(ethereum);
+        resolve(ethereum as unknown as T);
       } else {
 
         const message = mustBeMetaMask && ethereum
