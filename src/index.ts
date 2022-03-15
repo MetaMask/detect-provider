@@ -1,9 +1,15 @@
-interface EthereumProvider {
+interface MetaMaskEthereumProvider {
   isMetaMask?: boolean;
+  once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+  on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+  off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+  addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+  removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+  removeAllListeners(event?: string | symbol): this;
 }
 
 interface Window {
-  ethereum?: EthereumProvider;
+  ethereum?: MetaMaskEthereumProvider;
 }
 
 export = detectEthereumProvider;
@@ -24,11 +30,11 @@ export = detectEthereumProvider;
  * @returns A Promise that resolves with the Provider if it is detected within
  * given timeout, otherwise null.
  */
-function detectEthereumProvider({
+function detectEthereumProvider<T = MetaMaskEthereumProvider>({
   mustBeMetaMask = false,
   silent = false,
   timeout = 3000,
-} = {}): Promise<unknown> {
+} = {}): Promise<T | null> {
 
   _validateInputs();
 
@@ -64,7 +70,7 @@ function detectEthereumProvider({
       const { ethereum } = window as Window;
 
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
-        resolve(ethereum);
+        resolve(ethereum as unknown as T);
       } else {
 
         const message = mustBeMetaMask && ethereum
