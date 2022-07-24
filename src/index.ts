@@ -59,7 +59,9 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
     }
 
     function handleEthereum() {
-
+      if (!('ethereum' in window) {
+          return;
+      }
       if (handled) {
         return;
       }
