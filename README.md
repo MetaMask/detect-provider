@@ -1,18 +1,18 @@
-# @metamask/detect-provider
+# @0xzoz/tallyho-detect-provider
 
-A tiny utility for detecting the MetaMask Ethereum provider, or any provider injected at `window.ethereum`.
+A tiny utility for detecting the Tally Ho Ethereum provider, or any provider injected at `window.ethereum`.
 
 It has 0 dependencies and works out of the box in any modern browser, for synchronously and asynchronously injected providers.
 
 ## Usage
 
 Keep in mind that the providers detected by this package may or may not support [the Ethereum JavaScript Provider API](https://eips.ethereum.org/EIPS/eip-1193).
-Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ethereum-provider.html) to learn how to use our provider.
+Please consult [the Tally Ho documentation](https://docs.tally.cash/tally/developers/integrating-dapps) to learn how to integrate our wallet.
 
 ### Node.js
 
 ```javascript
-import detectEthereumProvider from '@metamask/detect-provider'
+import detectEthereumProvider from '@tallyho-detect-provider'
 
 const provider = await detectEthereumProvider()
 
@@ -32,14 +32,14 @@ if (provider) {
 } else {
 
   // if the provider is not detected, detectEthereumProvider resolves to null
-  console.error('Please install MetaMask!', error)
+  console.error('Please install Tally Ho!', error)
 }
 ```
 
 ### HTML
 
 ```html
-<script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+<script src=""></script>
 <script type="text/javascript">
   const provider = await detectEthereumProvider()
 
@@ -57,13 +57,13 @@ The exported function takes an optional `options` object.
 If invalid options are provided, an error will be thrown.
 All options have default values.
 
-#### `options.mustBeMetaMask`
+#### `options.mustBeTallyHo`
 
 Type: `boolean`
 
 Default: `false`
 
-Whether `window.ethereum.isMetaMask === true` is required for the returned Promise to resolve.
+Whether `window.ethereum.isTally === true` is required for the returned Promise to resolve.
 
 #### `options.silent`
 
@@ -83,18 +83,6 @@ Default: `3000`
 How many milliseconds to wait for asynchronously injected providers.
 
 ## Advanced Topics
-
-### Synchronous and Asynchronous Injection
-
-Providers can be either synchronously or asynchronously injected:
-
-- _Synchronously_ injected providers will be available by the time website code starts executing.
-- _Asynchronously_ injected providers may not become available until later in the page lifecycle.
-
-The MetaMask _extension_ provider is synchronously injected, while the MetaMask _mobile_ provider is asynchronously injected.
-
-To notify sites of asynchronous injection, MetaMask dispatches the `ethereum#initialized` event on `window` immediately after the provider has been set as `window.ethereum`.
-This package relies on that event to detect asynchronous injection.
 
 ### Overwriting or Modifying `window.ethereum`
 

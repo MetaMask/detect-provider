@@ -37,7 +37,7 @@
   "bugs": {
     "url": "https://github.com/0xzoz/tallyho-detect-provider/issues"
   },
-  "homepage": "https://github.com/TallyHo/tallyho-detect-provider#readme",
+  "homepage": "https://github.com/0xzoz/tallyho-detect-provider#readme",
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.0.3",
     "@metamask/auto-changelog": "^2.6.0",
