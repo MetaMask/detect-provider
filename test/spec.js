@@ -18,15 +18,15 @@ const mockGlobalProps = (ethereum) => {
 }
 
 // different mock providers
-const providerWithMetaMask = {
-  isMetaMask: true,
+const providerWithTallyHo = {
+  isTally: true,
 }
-const providerNoMetaMask = {}
+const providerNoTallyHo = {}
 const noProvider = null
 
 test('detectProvider: defaults with ethereum already set', async function (t) {
 
-  mockGlobalProps(providerNoMetaMask)
+  mockGlobalProps(providerNoTallyHo)
 
   const provider = await detectProvider()
 
@@ -50,9 +50,9 @@ test('detectProvider: mustBeTallyHo with ethereum already set', async function (
 
 test('detectProvider: mustBeTallyHo with non-TallyHo ethereum already set', async function (t) {
 
-  mockGlobalProps(providerNoMetaMask)
+  mockGlobalProps(providerNoTallyHo)
 
-  const result = await detectProvider({ timeout: 1, mustBeMetaMask: true })
+  const result = await detectProvider({ timeout: 1, mustBeTally: true })
   t.equal(result, null, 'promise should have resolved null')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')

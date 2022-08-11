@@ -21,7 +21,7 @@ export = detectEthereumProvider;
  * are provided.
  *
  * @param options - Options bag.
- * @param options.mustBeMetaMask - Whether to only look for MetaMask providers.
+ * @param options.mustBeTally - Whether to only look for Tally Ho providers.
  * Default: false
  * @param options.silent - Whether to silence console errors. Does not affect
  * thrown errors. Default: false
@@ -30,7 +30,7 @@ export = detectEthereumProvider;
  * @returns A Promise that resolves with the Provider if it is detected within
  * given timeout, otherwise null.
  */
-function detectEthereumProvider<T = MetaMaskEthereumProvider>({
+function detectEthereumProvider<T = TallyHoEthereumProvider>({
   mustBeTallyHo = false,
   silent = false,
   timeout = 3000,
