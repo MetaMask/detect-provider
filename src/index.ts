@@ -1,5 +1,5 @@
-interface MetaMaskEthereumProvider {
-  isMetaMask?: boolean;
+interface TallyHoEthereumProvider {
+  isTally?: boolean;
   once(eventName: string | symbol, listener: (...args: any[]) => void): this;
   on(eventName: string | symbol, listener: (...args: any[]) => void): this;
   off(eventName: string | symbol, listener: (...args: any[]) => void): this;
@@ -9,7 +9,7 @@ interface MetaMaskEthereumProvider {
 }
 
 interface Window {
-  ethereum?: MetaMaskEthereumProvider;
+  ethereum?: TallyHoEthereumProvider;
 }
 
 export = detectEthereumProvider;
@@ -31,7 +31,7 @@ export = detectEthereumProvider;
  * given timeout, otherwise null.
  */
 function detectEthereumProvider<T = MetaMaskEthereumProvider>({
-  mustBeMetaMask = false,
+  mustBeTallyHo = false,
   silent = false,
   timeout = 3000,
 } = {}): Promise<T | null> {
@@ -69,29 +69,29 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
 
       const { ethereum } = window as Window;
 
-      if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
+      if (ethereum && (!mustBeTallyHo || ethereum.isTally)) {
         resolve(ethereum as unknown as T);
       } else {
 
-        const message = mustBeMetaMask && ethereum
-          ? 'Non-MetaMask window.ethereum detected.'
+        const message = mustBeTallyHo && ethereum
+          ? 'Non-TallyHo window.ethereum detected.'
           : 'Unable to detect window.ethereum.';
 
-        !silent && console.error('@metamask/detect-provider:', message);
+        !silent && console.error('@0xzoz/tallyho-detect-provider:', message);
         resolve(null);
       }
     }
   });
 
   function _validateInputs() {
-    if (typeof mustBeMetaMask !== 'boolean') {
-      throw new Error(`@metamask/detect-provider: Expected option 'mustBeMetaMask' to be a boolean.`);
+    if (typeof mustBeTallyHo !== 'boolean') {
+      throw new Error(`@0xzoz/tallyho-detect-provider: Expected option 'mustBeTallyHo' to be a boolean.`);
     }
     if (typeof silent !== 'boolean') {
-      throw new Error(`@metamask/detect-provider: Expected option 'silent' to be a boolean.`);
+      throw new Error(`@0xzoz/tallyho-detect-provider: Expected option 'silent' to be a boolean.`);
     }
     if (typeof timeout !== 'number') {
-      throw new Error(`@metamask/detect-provider: Expected option 'timeout' to be a number.`);
+      throw new Error(`@0xzoz/tallyho-detect-provider: Expected option 'timeout' to be a number.`);
     }
   }
 }
