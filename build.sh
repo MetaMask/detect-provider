@@ -11,5 +11,5 @@ rm -rf ./dist/*
 
 tsc --project .
 
-$BROWSERIFY_CMD dist/index.js > dist/detect-provider.js
-$BROWSERIFY_CMD -p tinyify dist/index.js > dist/detect-provider.min.js
+$BROWSERIFY_CMD dist/index.js > dist/tallyho-detect-provider.js
+$BROWSERIFY_CMD -p tinyify dist/index.js > dist/tallyho-detect-provider.min.js

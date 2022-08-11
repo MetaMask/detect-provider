@@ -1,7 +1,7 @@
 {
-  "name": "@metamask/detect-provider",
-  "version": "1.2.0",
-  "description": "A tiny utility for detecting the MetaMask Ethereum provider, or any EIP 1193-compliant provider.",
+  "name": "tallyho-detect-provider",
+  "version": "1.0.0",
+  "description": "A tiny utility for detecting the TallyHo Ethereum provider, or any EIP 1193-compliant provider.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -20,9 +20,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/detect-provider.git"
+    "url": "https://github.com/0xzoz/tallyho-detect-provider.git"
   },
-  "author": "Erik Marks <rekmarks@protonmail.com>",
+  "author": "oxzoz <zeroexzoz@gmail.com>",
   "license": "ISC",
   "private": false,
   "publishConfig": {
@@ -31,13 +31,13 @@
   "keywords": [
     "ethereum",
     "provider",
-    "metamask",
+    "tallyho",
     "web3"
   ],
   "bugs": {
-    "url": "https://github.com/MetaMask/detect-provider/issues"
+    "url": "https://github.com/0xzoz/tallyho-detect-provider/issues"
   },
-  "homepage": "https://github.com/MetaMask/detect-provider#readme",
+  "homepage": "https://github.com/TallyHo/tallyho-detect-provider#readme",
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.0.3",
     "@metamask/auto-changelog": "^2.6.0",
