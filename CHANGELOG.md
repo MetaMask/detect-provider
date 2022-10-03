@@ -7,26 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [2.0.0]
-### Uncategorized
-- Bump Node to v14 ([#59](https://github.com/MetaMask/detect-provider/pull/59))
-- Bump @metamask/auto-changelog from 2.6.0 to 2.6.1 ([#54](https://github.com/MetaMask/detect-provider/pull/54))
-- Bump shell-quote from 1.7.2 to 1.7.3 ([#55](https://github.com/MetaMask/detect-provider/pull/55))
-- Copy Action workflow files from module template ([#47](https://github.com/MetaMask/detect-provider/pull/47))
-- Bump minimist from 1.2.5 to 1.2.6 ([#44](https://github.com/MetaMask/detect-provider/pull/44))
-- Fix failed to parse source map error ([#46](https://github.com/MetaMask/detect-provider/pull/46))
-- Update MetaMaskEthereumProvider type ([#41](https://github.com/MetaMask/detect-provider/pull/41))
-- Bump ajv from 6.12.2 to 6.12.6 ([#43](https://github.com/MetaMask/detect-provider/pull/43))
-- Removes global Window types ([#30](https://github.com/MetaMask/detect-provider/pull/30))
-- Bump cached-path-relative from 1.0.2 to 1.1.0 ([#39](https://github.com/MetaMask/detect-provider/pull/39))
-- Bump path-parse from 1.0.6 to 1.0.7 ([#29](https://github.com/MetaMask/detect-provider/pull/29))
-- Bump glob-parent from 5.1.1 to 5.1.2 ([#27](https://github.com/MetaMask/detect-provider/pull/27))
-- Repo standardization ([#25](https://github.com/MetaMask/detect-provider/pull/25))
-- Bump hosted-git-info from 2.8.8 to 2.8.9 ([#24](https://github.com/MetaMask/detect-provider/pull/24))
-- Bump lodash from 4.17.19 to 4.17.21 ([#23](https://github.com/MetaMask/detect-provider/pull/23))
-- Bump elliptic from 6.5.3 to 6.5.4 ([#21](https://github.com/MetaMask/detect-provider/pull/21))
-
 ### Changed
-- **BREAKING:** Removed support for Node v12 in favor of v14 ([#137](https://github.com/MetaMask/eth-json-rpc-middleware/pull/137))
+- **BREAKING:** Bump minimum required Node version to 14 ([#137](https://github.com/MetaMask/eth-json-rpc-middleware/pull/137))
+- Shore up MetaMaskEthereumProvider type with EventEmitter methods ([#41](https://github.com/MetaMask/detect-provider/pull/41))
+- Remove global type augmentation for `window.ethereum` so that it can be assigned its own type outside of `detectEthereumProvider` ([#30](https://github.com/MetaMask/detect-provider/pull/30))
+
+### Fixed
+- Include source code in source maps to prevent build errors ([#46](https://github.com/MetaMask/detect-provider/pull/46))
 
 ## [1.2.0] - 2020-10-26
 ### Added
