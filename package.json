@@ -16,7 +16,8 @@
     "lint": "eslint . --ext ts,js,json",
     "lint:fix": "yarn lint --fix",
     "build": "./build.sh",
-    "setup": "yarn install && yarn allow-scripts"
+    "setup": "yarn install && yarn allow-scripts",
+    "prepublishOnly": "yarn build && yarn test && yarn lint"
   },
   "repository": {
     "type": "git",
