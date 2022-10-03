@@ -5,8 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.0]
 ### Changed
-- **BREAKING:** Removed support for Node v12 in favor of v14 ([#137](https://github.com/MetaMask/eth-json-rpc-middleware/pull/137))
+- **BREAKING:** Bump minimum required Node version to 14 ([#137](https://github.com/MetaMask/eth-json-rpc-middleware/pull/137))
+- Shore up MetaMaskEthereumProvider type with EventEmitter methods ([#41](https://github.com/MetaMask/detect-provider/pull/41))
+- Remove global type augmentation for `window.ethereum` so that it can be assigned its own type outside of `detectEthereumProvider` ([#30](https://github.com/MetaMask/detect-provider/pull/30))
+
+### Fixed
+- Include source code in source maps to prevent build errors ([#46](https://github.com/MetaMask/detect-provider/pull/46))
 
 ## [1.2.0] - 2020-10-26
 ### Added
@@ -21,7 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial stable release.
 
-[Unreleased]: https://github.com/MetaMask/detect-provider/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/MetaMask/detect-provider/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/MetaMask/detect-provider/compare/v1.2.0...v2.0.0
 [1.2.0]: https://github.com/MetaMask/detect-provider/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/MetaMask/detect-provider/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/MetaMask/detect-provider/releases/tag/v1.0.1
