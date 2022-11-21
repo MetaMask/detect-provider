@@ -32,7 +32,7 @@ if (provider) {
 } else {
 
   // if the provider is not detected, detectEthereumProvider resolves to null
-  console.error('Please install MetaMask!', error)
+  console.error('Please install MetaMask!')
 }
 ```
 
