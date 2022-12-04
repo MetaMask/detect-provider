@@ -98,15 +98,23 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
 
 function getEthereum(mustBeMetaMask: boolean) {
   const { ethereum } = window as Window;
-  if (!ethereum) return undefined;
+  if (!ethereum) {
+    return undefined;
+  }
   // The `providers` field is populated when CoinBase Wallet extension is also installed
   // The expected object is an array of providers, the MetaMask provider is inside
   // See https://docs.cloud.coinbase.com/wallet-sdk/docs/injected-provider-guidance for more information
   if (Array.isArray(ethereum.providers)) {
-    if (mustBeMetaMask) return ethereum.providers.find(p => p.isMetaMask);
+    if (mustBeMetaMask) {
+      return ethereum.providers.find((p) => p.isMetaMask);
+    }
     return ethereum.providers[0];
   }
-  if (!mustBeMetaMask) return ethereum;
-  if (!ethereum.isMetaMask) return undefined;
+  if (!mustBeMetaMask) {
+    return ethereum;
+  }
+  if (!ethereum.isMetaMask) {
+    return undefined;
+  }
   return ethereum;
 }
