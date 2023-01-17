@@ -1,36 +1,44 @@
 module.exports = {
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
-  extends: [
-    '@metamask/eslint-config',
-    '@metamask/eslint-config/config/nodejs',
-  ],
-  plugins: [
-    'json',
-  ],
-  globals: {
-    window: true,
-  },
-  ignorePatterns: [
-    '!.eslintrc.js',
-    'node_modules/',
-    'dist/',
-  ],
+  root: true,
+
+  extends: ['@metamask/eslint-config'],
+
+  rules: {},
+
   overrides: [
     {
       files: ['*.ts'],
       extends: [
-        '@metamask/eslint-config/config/typescript',
+        '@metamask/eslint-config-browser',
+        '@metamask/eslint-config-typescript',
       ],
     },
+
     {
-      files: [
-        '.eslintrc.js',
-      ],
+      files: ['*.js'],
       parserOptions: {
         sourceType: 'script',
       },
+      extends: ['@metamask/eslint-config-nodejs'],
+      rules: {
+        'id-length': [
+          'error',
+          {
+            min: 2,
+            properties: 'never',
+            // "t" is an acceptable variable name in Tape tests.
+            exceptionPatterns: ['_', 'a', 'b', 'i', 'j', 'k', 't'],
+          },
+        ],
+      },
     },
   ],
-}
+
+  ignorePatterns: [
+    '!.eslintrc.js',
+    '!.prettierrc.js',
+    'dist/',
+    'docs/',
+    '.yarn/',
+  ],
+};

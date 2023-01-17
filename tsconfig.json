@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2015", "DOM"],
     "module": "CommonJS",
-    "outDir": "dist",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noErrorTruncation": true,
+    "noUncheckedIndexedAccess": true,
     "strict": true,
-    "target": "ES2015"
+    "target": "es2015"
   },
-  "include": [
-    "./src/*.ts",
-  ]
+  "exclude": ["./dist/**/*"]
 }

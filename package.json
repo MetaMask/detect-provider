@@ -1,61 +1,64 @@
 {
   "name": "@metamask/detect-provider",
   "version": "2.0.0",
-  "description": "A tiny utility for detecting the MetaMask Ethereum provider, or any EIP 1193-compliant provider.",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist/"
-  ],
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "scripts": {
-    "pretest": "yarn build",
-    "test": "node test/*",
-    "lint": "eslint . --ext ts,js,json",
-    "lint:fix": "yarn lint --fix",
-    "build": "./build.sh",
-    "setup": "yarn install && yarn allow-scripts",
-    "prepublishOnly": "yarn build && yarn test && yarn lint"
-  },
+  "description": "A tiny utility for detecting the MetaMask Ethereum provider or any EIP-1193-compliant provider.",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/detect-provider.git"
   },
-  "author": "Erik Marks <rekmarks@protonmail.com>",
   "license": "ISC",
-  "private": false,
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "ethereum",
-    "provider",
-    "metamask",
-    "web3"
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
   ],
-  "bugs": {
-    "url": "https://github.com/MetaMask/detect-provider/issues"
+  "scripts": {
+    "build": "./build.sh",
+    "build:clean": "rimraf dist && yarn build",
+    "build:docs": "typedoc",
+    "lint": "yarn lint:eslint && yarn lint:misc --check",
+    "lint:eslint": "eslint . --cache --ext js,ts",
+    "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
+    "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "prepack": "./scripts/prepack.sh",
+    "test": "yarn build && node test/*",
+    "test:watch": "echo 'test:watch' is not supported && exit 1"
   },
-  "homepage": "https://github.com/MetaMask/detect-provider#readme",
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.0.3",
-    "@metamask/auto-changelog": "^3.0.0",
-    "@metamask/eslint-config": "^4.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.5.0",
-    "@typescript-eslint/parser": "^4.5.0",
+    "@metamask/auto-changelog": "^3.1.0",
+    "@metamask/eslint-config": "^11.0.1",
+    "@metamask/eslint-config-browser": "^11.1.0",
+    "@metamask/eslint-config-nodejs": "^11.0.1",
+    "@metamask/eslint-config-typescript": "^11.0.0",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
     "browserify": "^16.5.1",
-    "eslint": "^7.7.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-json": "^2.1.1",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.6.2",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "prettier-plugin-packagejson": "^2.3.0",
+    "rimraf": "^3.0.2",
     "sinon": "^9.0.2",
     "tape": "^5.0.0",
     "tinyify": "^3.0.0",
-    "typescript": "^4.0.3"
+    "ts-node": "^10.7.0",
+    "typedoc": "^0.23.15",
+    "typescript": "~4.8.4"
   },
-  "dependencies": {},
+  "packageManager": "yarn@3.3.1",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false
