@@ -40,7 +40,7 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
 
   let handled = false;
 
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     if ((window as Window).ethereum) {
 
       handleEthereum();
@@ -72,13 +72,17 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
       if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
         resolve(ethereum as unknown as T);
       } else {
+        const expectedInjectionMissmatch = mustBeMetaMask && ethereum;
 
-        const message = mustBeMetaMask && ethereum
+        const message = expectedInjectionMissmatch
           ? 'Non-MetaMask window.ethereum detected.'
           : 'Unable to detect window.ethereum.';
 
         !silent && console.error('@metamask/detect-provider:', message);
-        resolve(null);
+
+        if(expectedInjectionMissmatch){
+          reject(new Error(message))
+        }
       }
     }
   });
