@@ -1,4 +1,4 @@
-interface MetaMaskEthereumProvider {
+export interface MetaMaskEthereumProvider {
   isMetaMask?: boolean;
   once(eventName: string | symbol, listener: (...args: any[]) => void): this;
   on(eventName: string | symbol, listener: (...args: any[]) => void): this;
