@@ -1,5 +1,6 @@
 interface MetaMaskEthereumProvider {
   isMetaMask?: boolean;
+  isBraveWallet?: boolean;
   once(eventName: string | symbol, listener: (...args: any[]) => void): this;
   on(eventName: string | symbol, listener: (...args: any[]) => void): this;
   off(eventName: string | symbol, listener: (...args: any[]) => void): this;
@@ -69,7 +70,7 @@ function detectEthereumProvider<T = MetaMaskEthereumProvider>({
 
       const { ethereum } = window as Window;
 
-      if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
+      if (ethereum && (!mustBeMetaMask || (ethereum.isMetaMask && !ethereum.isBraveWallet))) {
         resolve(ethereum as unknown as T);
       } else {
 
