@@ -75,9 +75,9 @@
     yargs "^16.2.0"
 
 "@metamask/auto-changelog@^3.0.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@metamask/auto-changelog/-/auto-changelog-3.3.0.tgz#9b9c2c4e4f5d65d85abcb3d9f6eedc32ea4518fd"
-  integrity sha512-Azv5WhR8N6iFUqcVfogM+aqkj/vWNv7CXD9TeSdlE1eoKV/TVtDe/dhRz+SjFJ8KK3u1dBuIrYypb2qBTh8Q8A==
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@metamask/auto-changelog/-/auto-changelog-3.4.0.tgz#c21da1076745e692043b26b61f1e72ef59e50ab9"
+  integrity sha512-H7aF40DGLtUynyFzESskltpGZIaA1v+Lhv9HoeJsG2ooGN78IaiguF/i8Uxg5sJvIuvSzugWvQ+ZF4I/5Rh/hw==
   dependencies:
     diff "^5.0.0"
     execa "^5.1.1"
