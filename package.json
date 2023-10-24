@@ -8,7 +8,7 @@
     "dist/"
   ],
   "engines": {
-    "node": ">=14.0.0"
+    "node": "^16.20 || ^18.16 || >=20"
   },
   "scripts": {
     "pretest": "yarn build",
