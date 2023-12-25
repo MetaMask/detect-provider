@@ -24,9 +24,31 @@ const providerWithMetaMask = {
 const providerNoMetaMask = {}
 const noProvider = null
 
+const manyProvidersWithMetaMask = {
+  providers: [{ isMetaMask: true }],
+}
+const manyProvidersWithoutMetaMask = {
+  providers: [{}],
+}
+const manyProvidersNoProvider = {
+  providers: [],
+}
+
 test('detectProvider: defaults with ethereum already set', async function (t) {
 
   mockGlobalProps(providerNoMetaMask)
+
+  const provider = await detectProvider()
+
+  t.deepEquals({}, provider, 'resolve with expected provider')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.end()
+})
+
+test('detectProvider: defaults with ethereum already set in `providers` array field', async function (t) {
+
+  mockGlobalProps(manyProvidersWithoutMetaMask)
 
   const provider = await detectProvider()
 
@@ -48,9 +70,32 @@ test('detectProvider: mustBeMetamask with ethereum already set', async function 
   t.end()
 })
 
+test('detectProvider: mustBeMetamask with ethereum already set in `providers` array field', async function (t) {
+
+  mockGlobalProps(manyProvidersWithMetaMask)
+
+  const provider = await detectProvider()
+
+  t.ok(provider.isMetaMask, 'should have resolved expected provider object')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.end()
+})
+
 test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set', async function (t) {
 
   mockGlobalProps(providerNoMetaMask)
+
+  const result = await detectProvider({ timeout: 1, mustBeMetaMask: true })
+  t.equal(result, null, 'promise should have resolved null')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.end()
+})
+
+test('detectProvider: mustBeMetamask with non-MetaMask ethereum already set in `providers` array field', async function (t) {
+
+  mockGlobalProps(manyProvidersWithoutMetaMask)
 
   const result = await detectProvider({ timeout: 1, mustBeMetaMask: true })
   t.equal(result, null, 'promise should have resolved null')
@@ -114,6 +159,18 @@ test('detectProvider: ethereum never set', async function (t) {
   const result = await detectProvider({ timeout: 1 })
   t.equal(result, null, 'promise should have resolved null')
   t.ok(window.addEventListener.calledOnce, 'addEventListener should have been called once')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
+  t.ok(console.error.calledOnce, 'console.error should have been called once')
+  t.end()
+})
+
+test('detectProvider: ethereum never set with `providers` array field', async function (t) {
+
+  mockGlobalProps(manyProvidersNoProvider)
+
+  const result = await detectProvider({ timeout: 1 })
+  t.equal(result, null, 'promise should have resolved null')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should have been called once')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener should have been called once')
   t.ok(console.error.calledOnce, 'console.error should have been called once')
   t.end()
