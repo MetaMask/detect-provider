@@ -12,7 +12,7 @@ Please consult [the MetaMask documentation](https://docs.metamask.io/guide/ether
 ### Node.js
 
 ```javascript
-import detectEthereumProvider from '@metamask/detect-provider'
+import { detectEthereumProvider } from '@metamask/detect-provider'
 
 const provider = await detectEthereumProvider()
 
