@@ -16,8 +16,7 @@
     "lint": "eslint . --ext ts,js,json",
     "lint:fix": "yarn lint --fix",
     "build": "./build.sh",
-    "setup": "yarn install && yarn allow-scripts",
-    "prepublishOnly": "yarn build && yarn test && yarn lint"
+    "prepack": "./scripts/prepack.sh"
   },
   "repository": {
     "type": "git",
@@ -25,7 +24,6 @@
   },
   "author": "Erik Marks <rekmarks@protonmail.com>",
   "license": "ISC",
-  "private": false,
   "publishConfig": {
     "access": "public"
   },
@@ -55,10 +53,10 @@
     "tinyify": "^4.0.0",
     "typescript": "^4.0.3"
   },
-  "dependencies": {},
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false
     }
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }
