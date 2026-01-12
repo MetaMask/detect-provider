@@ -1,0 +1,28 @@
+**Вставить (создать файл) `.github/ISSUE_TEMPLATE/false-positive.yml`:**
+```yml
+name: "False positive report"
+description: "Report a legitimate domain that is being blocked"
+title: "[False Positive]: "
+labels: ["false-positive"]
+body:
+  - type: input
+    id: domain
+    attributes:
+      label: Domain
+      placeholder: "example.com"
+    validations:
+      required: true
+  - type: textarea
+    id: why_legit
+    attributes:
+      label: Why is this domain legitimate?
+      placeholder: "Provide context, ownership proof, or references."
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence / screenshots
+      placeholder: "Links, screenshots, or reproduction steps."
+    validations:
+      required: false
