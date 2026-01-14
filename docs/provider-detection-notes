@@ -1,0 +1,31 @@
+# Provider Detection Notes
+
+This document explains how provider detection behaves in different environments
+and what developers should expect when using detect-provider.
+
+## Multiple providers
+
+- If multiple injected providers are present, the first matching provider is returned.
+- Wallets may inject providers asynchronously, depending on load timing.
+- Avoid assuming a specific wallet implementation is always returned.
+
+## Timing considerations
+
+- Provider injection can occur after page load.
+- Always await the detect-provider promise before using the provider.
+- Do not cache a failed detection result too early.
+
+## Recommended usage pattern
+
+- Call detect-provider once during initialization.
+- Store the resolved provider in application state.
+- Handle the case where no provider is found gracefully.
+
+## Common pitfalls
+
+- Calling provider methods before detection completes.
+- Assuming `window.ethereum` is always immediately available.
+- Hard-coding wallet-specific behavior.
+
+Understanding these behaviors helps prevent subtle integration bugs
+and improves compatibility across different wallets.
