@@ -1,5 +1,5 @@
 # @metamask/detect-provider
-
+npm i @metamask/detect-provider
 A tiny utility for detecting the MetaMask Ethereum provider, or any provider injected at `window.ethereum`.
 
 It has 0 dependencies and works out of the box in any modern browser, for synchronously and asynchronously injected providers.
