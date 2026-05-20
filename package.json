@@ -41,7 +41,7 @@
   "homepage": "https://github.com/MetaMask/detect-provider#readme",
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.5.1",
-    "@metamask/auto-changelog": "^3.0.0",
+    "@metamask/auto-changelog": "^6.1.1",
     "@metamask/eslint-config": "^4.1.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
