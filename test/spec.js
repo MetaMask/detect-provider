@@ -21,6 +21,10 @@ const mockGlobalProps = (ethereum) => {
 const providerWithMetaMask = {
   isMetaMask: true,
 }
+const providerWithBrave = {
+  isMetaMask: true,
+  isBraveWallet: true,
+}
 const providerNoMetaMask = {}
 const noProvider = null
 
@@ -43,6 +47,17 @@ test('detectEthereumProvider: mustBeMetamask with ethereum already set', async f
   const provider = await detectEthereumProvider()
 
   t.ok(provider.isMetaMask, 'should have resolved expected provider object')
+  t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
+  t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
+  t.end()
+})
+
+test('detectEthereumProvider: mustBeMetamask with Brave ethereum already set', async function (t) {
+
+  mockGlobalProps(providerWithBrave)
+
+  const result = await detectEthereumProvider({ timeout: 1, mustBeMetaMask: true })
+  t.equal(result, null, 'promise should have resolved null')
   t.ok(window.addEventListener.notCalled, 'addEventListener should not have been called')
   t.ok(window.removeEventListener.calledOnce, 'removeEventListener called once')
   t.end()

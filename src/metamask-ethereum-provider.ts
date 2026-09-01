@@ -1,5 +1,6 @@
 export interface MetaMaskEthereumProvider {
   isMetaMask?: boolean;
+  isBraveWallet?: boolean;
   once(eventName: string | symbol, listener: (...args: any[]) => void): this;
   on(eventName: string | symbol, listener: (...args: any[]) => void): this;
   off(eventName: string | symbol, listener: (...args: any[]) => void): this;
