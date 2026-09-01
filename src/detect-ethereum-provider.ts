@@ -56,7 +56,7 @@ export function detectEthereumProvider<T = MetaMaskEthereumProvider>({
 
       const { ethereum } = window as WindowWithEthereum;
 
-      if (ethereum && (!mustBeMetaMask || ethereum.isMetaMask)) {
+      if (ethereum && (!mustBeMetaMask || (ethereum.isMetaMask && !ethereum.isBraveWallet))) {
         resolve(ethereum as unknown as T);
       } else {
 
